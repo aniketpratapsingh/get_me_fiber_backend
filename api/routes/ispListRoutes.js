@@ -13,4 +13,7 @@ module.exports = function(app){
      .put(ispList.update_an_isp)
      .delete(ispList.delete_an_isp)
 
+    app.route('/find_isp_at_location')
+    .post(ispList.list_isp_at_loaction)
+
 }

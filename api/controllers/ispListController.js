@@ -1,5 +1,5 @@
 'use strict';
-
+const geolib = require('geolib');
 var mongoose = require('mongoose'),
     Isp = mongoose.model('ISP');
 
@@ -54,4 +54,23 @@ exports.delete_an_isp = function (req, res){
         res.json({ message: "ISP deleted"})
    })
 
+}
+
+exports.list_isp_at_loaction = function (req, res){
+    Isp.find({}, function(err, isp){
+        if (err)
+            res.send(err);
+        var ispList = [];
+        var coordinatesList;
+        for (var i=0; i < isp.length ; i++){
+            coordinatesList = [];
+            for (var j=0; j < isp[i].coordinates.length ;j++){
+                coordinatesList.push({ latitude: isp[i].coordinates[j].lat, longitude: isp[i].coordinates[j].lng })
+            }
+            if (geolib.isPointInPolygon({ latitude: req.body.latitude, longitude: req.body.longitude }, coordinatesList)){
+                ispList.push(isp[i])
+            }
+        }
+        res.json(ispList);
+    })
 }

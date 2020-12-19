@@ -24,13 +24,6 @@ app.use(bodyParser.json());
 var routes = require('./api/routes/ispListRoutes');
 routes(app);
 
-
-
-
 app.listen(port);
-
-
-
-
 
 console.log('Get me fiber backend api started on:' + port);
