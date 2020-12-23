@@ -2,10 +2,21 @@ const { mongo, Mongoose } = require('mongoose');
 
 var express = require('express'),
   app = express(),
-  port = process.env.PORT || 3000,
+  port = process.env.PORT || 5000,
   mongoose = require('mongoose'),
   Isp = require('./api/models/ispModel'),
   bodyParser = require('body-parser');
+
+
+
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  });
 
 
 mongoose.Promise = global.Promise;
